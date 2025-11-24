@@ -87,10 +87,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Botão "Fale com um especialista"
+    // Botão "Fale com um especialista" do banner
     const bannerButton = document.querySelector('.banner-button');
     if (bannerButton) {
         bannerButton.addEventListener('click', function() {
+            const contatoSection = document.getElementById('contato');
+            if (contatoSection) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = contatoSection.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+
+    // Botão "Fale com um especialista" da seção sobre
+    const sobreButton = document.querySelector('.sobre-button');
+    if (sobreButton) {
+        sobreButton.addEventListener('click', function() {
             const contatoSection = document.getElementById('contato');
             if (contatoSection) {
                 const headerHeight = document.querySelector('.header').offsetHeight;

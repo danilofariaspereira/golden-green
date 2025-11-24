@@ -234,44 +234,78 @@ body {
 
 .sobre-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr;
     gap: 60px;
-    align-items: center;
+    align-items: start;
+}
+
+.sobre-image {
+    width: auto;
+    max-width: 400px;
+}
+
+.sobre-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
 }
 
 .sobre-text {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
 }
 
 .sobre-intro {
-    font-size: 18px;
-    color: var(--text-dark);
-    line-height: 1.8;
+    font-size: 32px;
+    color: var(--green-dark);
+    line-height: 1.4;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.sobre-visao {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .sobre-visao h3 {
-    font-size: 24px;
-    color: var(--green-dark);
+    font-size: 26px;
+    color: var(--text-dark);
     margin-bottom: 15px;
+    font-weight: bold;
+    line-height: 1.4;
 }
 
 .sobre-visao p {
-    font-size: 16px;
-    color: var(--text-light);
+    font-size: 18px;
+    color: var(--text-dark);
     line-height: 1.8;
+    font-weight: 400;
 }
 
-.sobre-image {
-    width: 100%;
+.sobre-button {
+    background-color: #5a9d7a;
+    color: var(--white);
+    border: none;
+    padding: 15px 35px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: fit-content;
+    margin-top: 20px;
 }
 
-.sobre-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+.sobre-button:hover {
+    background-color: var(--green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(53, 88, 72, 0.3);
 }
 
 /* Seção Lotes */
@@ -510,6 +544,32 @@ body {
 @media (max-width: 968px) {
     .sobre-content {
         grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .sobre-image {
+        order: 1;
+        max-width: 100%;
+    }
+
+    .sobre-image img {
+        max-width: 100%;
+    }
+
+    .sobre-text {
+        order: 2;
+    }
+
+    .sobre-intro {
+        font-size: 26px;
+    }
+
+    .sobre-visao h3 {
+        font-size: 22px;
+    }
+
+    .sobre-visao p {
+        font-size: 16px;
     }
 
     .lotes-grid {
@@ -654,6 +714,18 @@ body {
 
     .section-title {
         font-size: 28px;
+    }
+
+    .sobre-intro {
+        font-size: 22px;
+    }
+
+    .sobre-visao h3 {
+        font-size: 20px;
+    }
+
+    .sobre-visao p {
+        font-size: 15px;
     }
 }
 
