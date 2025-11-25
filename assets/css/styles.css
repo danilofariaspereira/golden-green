@@ -310,63 +310,103 @@ body {
 
 /* Seção Lotes */
 .lotes {
-    padding: 80px 0;
+    position: relative;
     background-color: var(--green-dark);
     color: var(--white);
+    padding: 0;
+    overflow: hidden;
+    min-height: 100vh;
 }
 
-.lotes .section-title {
+.lotes-container {
+    position: relative;
+    padding: 80px 0 300px;
+    min-height: 100vh;
+}
+
+.lotes-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 100px;
+}
+
+.lotes-list {
+    padding: 20px 0;
+}
+
+.lotes-title {
+    font-size: 36px;
     color: var(--white);
+    margin-bottom: 30px;
+    font-weight: bold;
 }
 
 .lotes-intro {
-    text-align: center;
     font-size: 18px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    color: var(--white);
+    line-height: 1.6;
+}
+
+.lotes-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lote-benefit {
+    font-size: 18px;
+    color: var(--white);
+    margin-bottom: 20px;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.lote-benefit::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    font-size: 24px;
     color: var(--white);
 }
 
-.lotes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-bottom: 50px;
-}
-
-.lote-item {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.lote-item:hover {
-    transform: translateY(-5px);
-    background-color: rgba(255, 255, 255, 0.15);
-}
-
-.lote-icon {
-    font-size: 40px;
-    margin-bottom: 15px;
-}
-
-.lote-text {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--white);
-}
-
-.lotes-image {
-    width: 100%;
-    margin-top: 40px;
-}
-
-.lotes-image img {
+.lotes-map {
     width: 100%;
     height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.lotes-map img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.lotes-mountain {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 3;
+    pointer-events: none;
+    height: auto;
+}
+
+.lotes-mountain img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    display: block;
+    object-fit: cover;
+    object-position: bottom;
+    opacity: 0.95;
 }
 
 /* Seção Fotos */
@@ -572,8 +612,17 @@ body {
         font-size: 16px;
     }
 
-    .lotes-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .lotes-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .lotes-map {
+        order: 1;
+    }
+
+    .lotes-list {
+        order: 2;
     }
 
     .footer-content {
@@ -699,8 +748,25 @@ body {
         min-width: 250px;
     }
 
-    .lotes-grid {
+    .lotes-content {
         grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .lotes-title {
+        font-size: 28px;
+    }
+
+    .lotes-intro {
+        font-size: 16px;
+    }
+
+    .lote-benefit {
+        font-size: 16px;
+    }
+
+    .lotes-container {
+        padding: 60px 0 200px;
     }
 
     .footer-content {
