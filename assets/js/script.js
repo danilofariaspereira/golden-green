@@ -28,37 +28,70 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Carrossel de fotos (apenas se existir na página)
     const carouselTrack = document.getElementById('carouselTrack');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const slides = document.querySelectorAll('.carousel-slide');
     
-    let currentIndex = 0;
-    const totalSlides = slides.length;
+    if (carouselTrack && prevBtn && nextBtn && slides.length > 0) {
+        let currentIndex = 0;
+        const totalSlides = slides.length;
 
-    // Função para atualizar a posição do carrossel
-    function updateCarousel() {
-        const translateX = -currentIndex * 100;
-        carouselTrack.style.transform = `translateX(${translateX}%)`;
+        // Função para obter número de slides visíveis baseado na largura da tela
+        function getSlidesPerView() {
+            if (window.innerWidth <= 480) {
+                return 1;
+            } else if (window.innerWidth <= 768) {
+                return 2;
+            } else if (window.innerWidth <= 968) {
+                return 3;
+            }
+            return 4;
+        }
+
+        // Função para atualizar a posição do carrossel
+        function updateCarousel() {
+            const slidesPerView = getSlidesPerView();
+            const slideWidth = 100 / slidesPerView;
+            const translateX = -currentIndex * slideWidth;
+            carouselTrack.style.transform = `translateX(${translateX}%)`;
+        }
+
+        // Função para atualizar o índice máximo
+        function updateMaxIndex() {
+            const slidesPerView = getSlidesPerView();
+            const maxIndex = Math.max(0, totalSlides - slidesPerView);
+            if (currentIndex > maxIndex) {
+                currentIndex = maxIndex;
+            }
+            return maxIndex;
+        }
+
+        // Botão Próximo
+        nextBtn.addEventListener('click', function() {
+            const slidesPerView = getSlidesPerView();
+            const maxIndex = updateMaxIndex();
+            currentIndex = Math.min(currentIndex + slidesPerView, maxIndex);
+            updateCarousel();
+        });
+
+        // Botão Anterior
+        prevBtn.addEventListener('click', function() {
+            currentIndex = Math.max(currentIndex - getSlidesPerView(), 0);
+            updateCarousel();
+        });
+
+        // Atualiza ao redimensionar a janela
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                updateMaxIndex();
+                updateCarousel();
+            }, 250);
+        });
     }
-
-    // Botão Próximo
-    nextBtn.addEventListener('click', function() {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateCarousel();
-    });
-
-    // Botão Anterior
-    prevBtn.addEventListener('click', function() {
-        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        updateCarousel();
-    });
-
-    // Auto-play do carrossel (opcional - descomente se quiser)
-    // setInterval(function() {
-    //     currentIndex = (currentIndex + 1) % totalSlides;
-    //     updateCarousel();
-    // }, 5000);
 
     // Navegação suave para links internos
     const allNavLinks = document.querySelectorAll('a[href^="#"]');
@@ -88,9 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Botão "Fale com um especialista" do banner
-    const bannerButton = document.querySelector('.banner-button');
-    if (bannerButton) {
+    const bannerButtons = document.querySelectorAll('.banner-button');
+    bannerButtons.forEach(bannerButton => {
         bannerButton.addEventListener('click', function() {
+            // Tenta encontrar a seção de contato na mesma página primeiro
             const contatoSection = document.getElementById('contato');
             if (contatoSection) {
                 const headerHeight = document.querySelector('.header').offsetHeight;
@@ -100,9 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: targetPosition,
                     behavior: 'smooth'
                 });
+            } else {
+                // Se não encontrar, redireciona para a home na seção de contato
+                window.location.href = 'index.html#contato';
             }
         });
-    }
+    });
 
     // Botão "Fale com um especialista" da seção sobre
     const sobreButton = document.querySelector('.sobre-button');
