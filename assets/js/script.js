@@ -228,5 +228,83 @@ document.addEventListener('DOMContentLoaded', function() {
         section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(section);
     });
+
+    // Animação de contador decrescente nos cards informativos
+    const infoCards = document.querySelectorAll('.info-card-number');
+    
+    if (infoCards.length > 0) {
+        const duration = 2000; // 2 segundos para todos terminarem ao mesmo tempo
+        let hasAnimated = false;
+        
+        function formatNumber(value, prefix, suffix) {
+            let displayValue = Math.floor(value);
+            
+            if (prefix === 'R$') {
+                // Formatação para valores monetários (198000 -> 198.000)
+                const formatted = displayValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                return prefix + ' ' + formatted;
+            } else if (suffix === 'm²') {
+                return displayValue + suffix;
+            } else if (suffix === '°' || suffix === '%' || suffix === 'x') {
+                return displayValue + suffix;
+            } else if (suffix === 'hrs') {
+                return displayValue + ' ' + suffix;
+            } else {
+                return displayValue.toString();
+            }
+        }
+        
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const prefix = element.getAttribute('data-prefix') || '';
+            const suffix = element.getAttribute('data-suffix') || '';
+            
+            // Calcula valor inicial maior (do menor para o maior)
+            let startValue;
+            if (target < 100) {
+                startValue = target + 50; // Para valores pequenos
+            } else if (target < 1000) {
+                startValue = target + 200; // Para valores médios
+            } else {
+                startValue = Math.floor(target * 1.3); // Para valores grandes
+            }
+            
+            const steps = duration / 16; // 60 FPS
+            const decrement = (startValue - target) / steps;
+            let current = startValue;
+            let step = 0;
+            
+            const timer = setInterval(() => {
+                current -= decrement;
+                step++;
+                
+                if (current <= target || step >= steps) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                
+                element.textContent = formatNumber(current, prefix, suffix);
+            }, 16);
+        }
+        
+        // Observa quando a seção entra na tela
+        const infoCardsSection = document.querySelector('.info-cards');
+        if (infoCardsSection) {
+            const cardsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasAnimated) {
+                        hasAnimated = true;
+                        // Inicia todas as animações simultaneamente
+                        infoCards.forEach(card => {
+                            animateCounter(card);
+                        });
+                        cardsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            cardsObserver.observe(infoCardsSection);
+        }
+    }
 });
 
