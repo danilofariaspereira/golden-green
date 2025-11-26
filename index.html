@@ -16,16 +16,26 @@
                     <img src="assets/images/logo.png" alt="Logo" class="logo-image">
                 </a>
             </div>
-            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
             <nav class="nav" id="nav">
                 <a href="index.html#sobre" class="nav-link">Sobre Nós</a>
                 <a href="lotes.html" class="nav-link">Lotes</a>
                 <a href="index.html#contato" class="nav-link">Contatos</a>
             </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <svg id="menu-icon" class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                <svg id="close-icon" class="menu-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="mobile-menu" id="mobileMenu">
+                <div class="mobile-menu-content">
+                    <a href="index.html#sobre" class="mobile-menu-item">Sobre Nós</a>
+                    <a href="lotes.html" class="mobile-menu-item">Lotes</a>
+                    <a href="index.html#contato" class="mobile-menu-item">Contatos</a>
+                </div>
+            </div>
         </div>
     </header>
 
