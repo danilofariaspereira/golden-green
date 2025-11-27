@@ -70,7 +70,7 @@ body {
 
 @media (max-width: 768px) {
     .header {
-        position: absolute;
+        position: fixed;
         top: 15px;
     }
 }
@@ -1313,7 +1313,7 @@ body {
 
     /* Menu dropdown aparece abaixo do header */
     .header {
-        position: absolute;
+        position: fixed;
         top: 15px;
         padding: 0;
     }
